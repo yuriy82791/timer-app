@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Timer from "./components/Timer";
-
+import "./reset.css";
 ReactDOM.render(
   <React.StrictMode>
     <Timer

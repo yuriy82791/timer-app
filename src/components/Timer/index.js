@@ -12,8 +12,8 @@ export default ({
   onTimeStart,
   onTimePause,
 }) => {
-  const [start, changeState] = useState(autoStart ? true : false);
-  const [timeLeft, changeTimer] = useState(time);
+  const [start, changeState] = useState(autoStart);
+  const [timeLeft, setTimeLeft] = useState(time);
   function startTimer() {
     changeState(!start);
     start ? onTimeStart() : onTimePause();
@@ -22,17 +22,19 @@ export default ({
     let intervalId = null;
     if (!timeLeft) {
       onTimeEnd();
+      setTimeLeft(time);
+      changeState(!start);
       return;
     }
     if (start) {
       intervalId = setInterval(() => {
-        changeTimer(timeLeft - timerStep / 1000);
+        setTimeLeft(timeLeft - timerStep / 1000);
       }, timerStep);
       onTick(timeLeft);
     }
 
     return () => clearInterval(intervalId);
-  }, [timeLeft, timerStep, start, onTick, onTimeEnd]);
+  }, [time, timeLeft, timerStep, start, onTick, onTimeEnd]);
   return (
     <div className="timer-wrapper">
       <div className="timer-container">
