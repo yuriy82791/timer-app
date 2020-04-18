@@ -22,8 +22,8 @@ export default ({
     let intervalId = null;
     if (!timeLeft) {
       onTimeEnd();
-      setTimeLeft(time);
       changeState(!start);
+      setTimeLeft(time);
       return;
     }
     if (start) {
